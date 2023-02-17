@@ -2,7 +2,6 @@ package com.simsek.hibernate.repository;
 
 import com.simsek.hibernate.entity.Address;
 import com.simsek.hibernate.entity.Customer;
-import com.simsek.hibernate.entity.Product;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -45,7 +44,6 @@ public class CustomerRepository {
         return customer;
     }
 
-    @Transactional
     public void delete(String id) {
         Optional<Customer> customer = get(id);
         if(customer.isPresent()) {
@@ -63,7 +61,6 @@ public class CustomerRepository {
         return address;
     }
 
-    @Transactional
     public void deleteAddress(Address address) {
         entityManager.remove(address);
     }

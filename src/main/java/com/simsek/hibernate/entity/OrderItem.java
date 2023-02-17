@@ -30,23 +30,23 @@ public class OrderItem {
     private String status;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name="FK_orderItem_order"))
     private Order order;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="product_id", foreignKey = @ForeignKey(name="FK_orderItem_product"))
     private Product product;
 
-    public OrderItem(UUID id, LocalDateTime createDate, Integer quantity, BigDecimal amount, String status, Order order, Product product) {
-        this.id = id;
+    public OrderItem(LocalDateTime createDate, Integer quantity, BigDecimal amount, String status) {
         this.createDate = createDate;
         this.quantity = quantity;
         this.amount = amount;
         this.status = status;
-        this.order = order;
-        this.product = product;
+    }
+
+    public OrderItem() {
     }
 
     public UUID getId() {

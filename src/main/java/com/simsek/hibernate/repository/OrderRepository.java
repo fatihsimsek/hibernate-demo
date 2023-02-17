@@ -1,6 +1,8 @@
 package com.simsek.hibernate.repository;
 
+import com.simsek.hibernate.adapter.OrderItemCreateRequest;
 import com.simsek.hibernate.entity.Order;
+import com.simsek.hibernate.entity.OrderItem;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +31,11 @@ public class OrderRepository {
         return Optional.ofNullable(order);
     }
 
+    public Optional<OrderItem> getOrderItem(String id) {
+        OrderItem orderItem = entityManager.find(OrderItem.class, UUID.fromString(id));
+        return Optional.ofNullable(orderItem);
+    }
+
     @Transactional
     public Order save(Order order) {
         if(order.getId() != null) {
@@ -37,5 +44,20 @@ public class OrderRepository {
             entityManager.persist(order);
         }
         return order;
+    }
+
+    @Transactional
+    public OrderItem saveOrderItem(OrderItem orderItem) {
+        if(orderItem.getId() != null) {
+            entityManager.merge(orderItem);
+        } else {
+            entityManager.persist(orderItem);
+        }
+        return orderItem;
+    }
+
+    @Transactional
+    public void deleteOrderItem(OrderItem orderItem) {
+        entityManager.remove(orderItem);
     }
 }

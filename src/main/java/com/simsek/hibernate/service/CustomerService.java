@@ -8,6 +8,7 @@ import com.simsek.hibernate.entity.Customer;
 import com.simsek.hibernate.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -54,6 +55,7 @@ public class CustomerService {
         this.customerRepository.delete(id);
     }
 
+    @Transactional
     public Optional<Address> createAddress(AddressCreateRequest addressCreateRequest) {
         Optional<Customer> optionalCustomer = get(addressCreateRequest.getCustomerId());
         if(optionalCustomer.isPresent()) {
@@ -74,6 +76,7 @@ public class CustomerService {
         return Optional.empty();
     }
 
+    @Transactional
     public void deleteAddress(String id) {
         Optional<Address> optionalAddress = this.customerRepository.getAddress(id);
         if(optionalAddress.isPresent()) {

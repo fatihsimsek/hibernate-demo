@@ -29,7 +29,7 @@ public class Order {
     private String status;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name="FK_order_customer"))
     private Customer customer;
 
